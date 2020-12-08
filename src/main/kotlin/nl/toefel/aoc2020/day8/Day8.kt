@@ -46,4 +46,3 @@ fun runProgram(instr: List<Op>): Pair<Boolean, Long> {
     }
     return true to acc
 }
-
