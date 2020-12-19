@@ -14,16 +14,12 @@ interface IPoint3D : Point{
 }
 
 data class Point3D(override val x: Int, override val y: Int, override val z: Int) : IPoint3D{
-    override val withNeighbors: List<Point3D> by lazy {
-        (x - 1..x + 1).flatMap { iX -> (y - 1..y + 1).flatMap { iY -> (z - 1..z + 1).map { iZ -> Point3D(iX, iY, iZ) } } }
-    }
+    override val withNeighbors: List<Point3D> by lazy { (x - 1..x + 1).flatMap { iX -> (y - 1..y + 1).flatMap { iY -> (z - 1..z + 1).map { iZ -> Point3D(iX, iY, iZ) } } } }
     override val neighbors: List<Point3D> get() = withNeighbors - this
 }
 
 data class Point4D(val point3d: Point3D, val w: Int) : IPoint3D by point3d{
-    override val withNeighbors: List<Point4D> by lazy {
-        (w - 1..w +1).flatMap { iW -> point3d.withNeighbors.map { Point4D(it, iW) }}
-    }
+    override val withNeighbors: List<Point4D> by lazy { (w - 1..w +1).flatMap { iW -> point3d.withNeighbors.map { Point4D(it, iW) }}  }
     override val neighbors: List<Point4D> get() = withNeighbors - this
 }
 
